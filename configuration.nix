@@ -101,6 +101,7 @@
 
   users.users.soeren = {
     isNormalUser = true;
+    shell = pkgs.fish;
     description = "Soeren";
     extraGroups = [ "networkmanager" "wheel" "video"];
 
@@ -114,16 +115,15 @@
 	target = ".config/awesome/rc.lua";
   	};
   };
+  home.file = {"./.config/fish/config.fish".text = "fish_vi_key_bindings";  };
 
   nixpkgs.config.allowUnfree = true; 
   programs.fish = {
   	enable = true;
   };
 
-
  programs.alacritty.enable = true; 
   home.packages = with pkgs; [
-  		byobu
 		tmux
 	       home-manager
 	       neovim
@@ -132,6 +132,7 @@
 	       anki-bin
 	       notion-app-enhanced
 	       google-chrome
+	       flameshot
   ];
 };
 
