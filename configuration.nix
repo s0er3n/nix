@@ -108,7 +108,12 @@
   home-manager.users.soeren = { pkgs, ... }: {
 
   # make a file with text in it and it will get sym linked
-  # home.file = {"test.txt".text = "was geht";};
+  home.file = {"rc.lua" = {
+	source = "/etc/nixos/rc.lua";
+	# recursive = true;
+	target = ".config/awesome/rc.lua";
+  	};
+  };
 
   nixpkgs.config.allowUnfree = true; 
   programs.fish = {
