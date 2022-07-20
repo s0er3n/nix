@@ -197,6 +197,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
+        -- Add widgets to the wibox
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -210,6 +211,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            require("battery-widget") {},
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
@@ -279,6 +281,8 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey,"Shift"}, "Return", function () awful.spawn("google-chrome-stable") end,
+              {description = "open a browser", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,

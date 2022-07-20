@@ -18,6 +18,9 @@
  services.xserver.libinput.naturalScrolling = true;
  services.xserver.libinput.middleEmulation = true;
  services.xserver.libinput.enable = true;
+ # for showing the battery
+ services.acpid.enable = true;
+
   networking.hostName = "soerens-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -108,6 +111,7 @@
   };
   home-manager.users.soeren = { pkgs, ... }: {
 
+
   # make a file with text in it and it will get sym linked
   home.file = {"rc.lua" = {
 	source = "/etc/nixos/rc.lua";
@@ -115,19 +119,42 @@
 	target = ".config/awesome/rc.lua";
   	};
   };
+
+  # add a battery widget to lua
+  home.file = {"battery-widget.lua" = {
+	source = "/etc/nixos/battery-widget.lua";
+	# recursive = true;
+	target = ".config/awesome/battery-widget/init.lua";
+  	};
+  };
+  # nvim config
+  home.file = {"init.lua" = {
+	source = "/etc/nixos/init.lua";
+	# recursive = true;
+	target = ".config/nvim/init.lua";
+  	};
+  };
+
   home.file = {"./.config/fish/config.fish".text = "fish_vi_key_bindings";  };
+
+  home.file = {"./.tmux.conf".text = "set-option -g default-shell $SHELL";  };
 
   nixpkgs.config.allowUnfree = true; 
   programs.fish = {
   	enable = true;
   };
+  services.network-manager-applet.enable= true;
 
  programs.alacritty.enable = true; 
   home.packages = with pkgs; [
 		tmux
+		gcc
+
+	       unzip
 	       home-manager
 	       neovim
 	       git
+	       gh
 	       direnv
 	       anki-bin
 	       notion-app-enhanced
